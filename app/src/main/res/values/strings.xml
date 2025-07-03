@@ -6,4 +6,8 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="create_account">CREATE ACCOUNT</string>
+    <string name="msg_error_User">Add at least 3 or less than 12 letters</string>
+    <string name="msg_error_Password">password must contain at least 8 characters</string>
+    <string name="msg_please_fill_in_all_fields">Please fill in all fields</string>
+    <string name="msg_savedData">Registered</string>
 </resources>
