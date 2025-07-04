@@ -5,27 +5,23 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
-public class DB extends SQLiteOpenHelper implements BaseColumns {
-    public static final String Name_Bank = "bank.db";
-    public static final String Table = "dataUsers";
+public class DBPassword extends SQLiteOpenHelper implements BaseColumns {
+    public static final String Password_Bank = "password.db";
+    public static final String Table = "passwordGenerate";
     public static final String ID = "id";
-    public static final String Username = "username";
     public static final String Password = "password";
-    public static final String Email = "email";
-    public static final int Version = 2;
+    public static final int Version = 3;
 
-    public DB(Context context) {
-        super(context, Name_Bank, null, Version);
+    public DBPassword(Context context) {
+        super(context, Password_Bank, null, Version);
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String criarDB = "CREATE TABLE " + DB.Table +
-                "( " + DB.ID + " INTEGER PRIMARY KEY, "
-                + DB.Username + " text, "
-                + DB.Password + " text, "
-                + DB.Email + " text)";
-        sqLiteDatabase.execSQL(criarDB);
+        String criarDBpw = "CREATE TABLE " + DBPassword.Table +
+                "( " + DBPassword.ID + " INTEGER PRIMARY KEY,"
+                + DBPassword.Password + " text)";
+        sqLiteDatabase.execSQL(criarDBpw);
     }
 
     @Override

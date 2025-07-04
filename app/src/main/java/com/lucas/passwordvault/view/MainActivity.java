@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, getString(R.string.msg_error_Password), Toast.LENGTH_SHORT).show();
                 return;
             }
-
             User user = new User(et_Username.getText().toString(), et_Password.getText().toString(), et_Email.getText().toString());
             usersController.saveUsers(user);
             dbController.insertData(user.getName(), user.getPassword(), user.getEmail());
