@@ -14,4 +14,5 @@
     <string name="name_with_up_to_9_characters">Name with up to 9 characters</string>
     <string name="generate_password">Generate password</string>
     <string name="save">Save</string>
+    <string name="do_you_have_a_login_click_here">Do you have a login?Click here</string>
 </resources>

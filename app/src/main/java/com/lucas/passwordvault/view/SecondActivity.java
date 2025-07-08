@@ -23,7 +23,7 @@ import java.util.Random;
 public class SecondActivity extends AppCompatActivity {
     private TextView tx_Password, tx_Username, tx_Email;
     private Button btn_generatePassword, btn_generateUsernames, btn_generateEmail;
-    private Button btn_savePassword, btn_saveUsernames, btn_saveEmail;
+    private Button btn_savePassword, btn_saveUsername, btn_saveEmail;
     private DBController_Password dbControllerPassword;
     private DBController_Email dbControllerEmail;
     private DBController_Username dbControllerUsername;
@@ -42,6 +42,8 @@ public class SecondActivity extends AppCompatActivity {
         setContentView(R.layout.second_activity);
 
         dbControllerPassword = new DBController_Password(this);
+        dbControllerEmail = new DBController_Email(this);
+        dbControllerUsername = new DBController_Username(this);
 
         tx_Password = findViewById(R.id.tx_password);
         tx_Username = findViewById(R.id.tx_password2);
@@ -52,11 +54,10 @@ public class SecondActivity extends AppCompatActivity {
         btn_generateEmail = findViewById(R.id.btn_generateEM);
 
         btn_savePassword = findViewById(R.id.btn_savePW);
-        btn_saveUsernames = findViewById(R.id.btn_saveUN);
+        btn_saveUsername = findViewById(R.id.btn_saveUN);
         btn_saveEmail = findViewById(R.id.btn_saveEM);
 
         et_name = findViewById(R.id.et_name);
-
 
         btn_generatePassword.setOnClickListener(v -> {
             int length = 12;
@@ -83,7 +84,6 @@ public class SecondActivity extends AppCompatActivity {
             }
         });
 
-
         btn_generateEmail.setOnClickListener(v -> {
             String nome = et_name.getText().toString().trim();
 
@@ -97,20 +97,18 @@ public class SecondActivity extends AppCompatActivity {
                 return;
             }
             String sufixo = gerarSufixoAleatorio();
-            email = nome.toLowerCase() + sufixo + "@email.com";
+            email = nome.toLowerCase() + sufixo + "@gmail.com";
             tx_Email.setText(email);
         });
 
         btn_saveEmail.setOnClickListener(v -> {
             if (!email.isEmpty()) {
-                Email email1 = new Email(email);
-                dbControllerEmail.insertData(email1.getEmail());
+                dbControllerEmail.insertData(email);
                 Toast.makeText(this, "Email saved successfully!", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "Generate a email before saving.", Toast.LENGTH_SHORT).show();
             }
         });
-
 
         btn_generateUsernames.setOnClickListener(v -> {
             String nome = et_name.getText().toString().trim();
@@ -125,14 +123,13 @@ public class SecondActivity extends AppCompatActivity {
                 return;
             }
             String sufixo = gerarSufixoAleatorio();
-            String usuario = nome.toLowerCase() + "_" + sufixo;
-            tx_Username.setText(usuario);
+            username = nome.toLowerCase() + "_" + sufixo;
+            tx_Username.setText(username);
         });
 
-        btn_saveUsernames.setOnClickListener(v -> {
+        btn_saveUsername.setOnClickListener(v -> {
             if (!username.isEmpty()) {
-                Username username1 = new Username(username);
-                dbControllerUsername.insertData(username1.getUsername());
+                dbControllerUsername.insertData(username);
                 Toast.makeText(this, "Username saved successfully!", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "Generate a username before saving.", Toast.LENGTH_SHORT).show();

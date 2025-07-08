@@ -10,7 +10,7 @@ public class DBUsername extends SQLiteOpenHelper implements BaseColumns {
     public static final String Table = "usernameGenerator";
     public static final String ID = "id";
     public static final String Username = "username";
-    public static final int Version = 3;
+    public static final int Version = 1;
 
     public DBUsername(Context context) {
         super(context, Username_bank, null, Version);

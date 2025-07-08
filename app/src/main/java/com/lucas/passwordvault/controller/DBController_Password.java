@@ -3,8 +3,6 @@ package com.lucas.passwordvault.controller;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-
-import com.lucas.passwordvault.DB.DB;
 import com.lucas.passwordvault.DB.DBPassword;
 
 public class DBController_Password {
