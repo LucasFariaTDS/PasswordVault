@@ -1,22 +1,27 @@
 package com.lucas.passwordvault.view;
 
+import android.Manifest;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 
 import com.lucas.passwordvault.R;
 import com.lucas.passwordvault.controller.DBController_Email;
 import com.lucas.passwordvault.controller.DBController_Password;
 import com.lucas.passwordvault.controller.DBController_Username;
-import com.lucas.passwordvault.model.Email;
 import com.lucas.passwordvault.model.Password;
-import com.lucas.passwordvault.model.Username;
-
 import java.security.SecureRandom;
 import java.util.Random;
 
@@ -40,6 +45,8 @@ public class SecondActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.second_activity);
+
+        CreatNotification();
 
         dbControllerPassword = new DBController_Password(this);
         dbControllerEmail = new DBController_Email(this);
@@ -82,6 +89,7 @@ public class SecondActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Generate a password before saving.", Toast.LENGTH_SHORT).show();
             }
+            SendNotification();
         });
 
         btn_generateEmail.setOnClickListener(v -> {
@@ -107,6 +115,7 @@ public class SecondActivity extends AppCompatActivity {
                 Toast.makeText(this, "Email saved successfully!", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "Generate a email before saving.", Toast.LENGTH_SHORT).show();
+                SendNotification();
             }
         });
 
@@ -134,6 +143,7 @@ public class SecondActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Generate a username before saving.", Toast.LENGTH_SHORT).show();
             }
+            SendNotification();
         });
     }
 
@@ -156,6 +166,31 @@ public class SecondActivity extends AppCompatActivity {
             sufixo.append(random.nextInt(10));
         }
         return sufixo.toString();
+    }
+
+    private void SendNotification() {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "canal_password")
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle("Password Vault")
+                .setContentText("Your generated data has been saved, thank you for your preference!")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
+                ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
+            notificationManager.notify(1, builder.build());
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1);
+        }
+    }
+
+    private void CreatNotification() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel canal = new NotificationChannel("canal_password", "Notificações Password Vault", NotificationManager.IMPORTANCE_DEFAULT);
+            canal.setDescription("Chanel for notification of order");
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(canal);
+        }
     }
 }
 

@@ -4,11 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.lucas.passwordvault.R;
 import com.lucas.passwordvault.controller.DBController;
 import com.lucas.passwordvault.controller.UserController;
@@ -19,6 +18,7 @@ public class ThirdActivity extends AppCompatActivity {
     private Button btnRegister;
     private UserController usersController;
     private DBController dbController;
+    private TextView tx_register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +32,7 @@ public class ThirdActivity extends AppCompatActivity {
         et_Email = findViewById(R.id.et_Email);
         et_Password = findViewById(R.id.et_Password);
         btnRegister = findViewById(R.id.btnRegister);
+        tx_register = findViewById(R.id.textView2);
 
         btnRegister.setOnClickListener(v -> {
             if (et_Username.getText().toString().trim().isEmpty() || et_Password.getText().toString().trim().isEmpty() || et_Email.getText().toString().trim().isEmpty()) {
@@ -54,6 +55,10 @@ public class ThirdActivity extends AppCompatActivity {
             startActivity(intent);
         });
         loadUser();
+        tx_register.setOnClickListener(v ->{
+            Intent intent = new Intent(ThirdActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
     }
 
     public void loadUser() {

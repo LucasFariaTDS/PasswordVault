@@ -85,7 +85,7 @@
             android:id="@+id/login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/do_you_have_a_login_click_here"
+            android:text="Don't have a login?Click here"
             android:textStyle="bold"
             android:textSize="16sp" />
 

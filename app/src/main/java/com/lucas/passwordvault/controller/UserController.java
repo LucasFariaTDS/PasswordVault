@@ -2,7 +2,6 @@ package com.lucas.passwordvault.controller;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-
 import com.lucas.passwordvault.model.User;
 
 public class UserController {
