@@ -3,8 +3,10 @@ package com.lucas.passwordvault.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.lucas.passwordvault.R;
 
 public class SplashActivity extends AppCompatActivity {
@@ -19,7 +21,8 @@ public class SplashActivity extends AppCompatActivity {
 
         comutartelaSplash();
     }
-    private void comutartelaSplash(){
+
+    private void comutartelaSplash() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -28,6 +31,6 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(mainScreen);
                 finish();
             }
-        },TIME_OUT_SPLASH);
+        }, TIME_OUT_SPLASH);
     }
 }

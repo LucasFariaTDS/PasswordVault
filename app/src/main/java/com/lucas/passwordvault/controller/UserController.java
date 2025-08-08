@@ -2,6 +2,7 @@ package com.lucas.passwordvault.controller;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
 import com.lucas.passwordvault.model.User;
 
 public class UserController {
@@ -22,10 +23,11 @@ public class UserController {
         dataUsers.putString(KEY_EMAIL, user.getEmail());
         dataUsers.apply();
     }
-    public User loadUser(){
+
+    public User loadUser() {
         String userName = preferences.getString(KEY_USER_NAME, "");
         String password = preferences.getString(KEY_PASSWORD, "");
         String email = preferences.getString(KEY_EMAIL, "");
-        return new User(userName,password,email);
+        return new User(userName, password, email);
     }
 }

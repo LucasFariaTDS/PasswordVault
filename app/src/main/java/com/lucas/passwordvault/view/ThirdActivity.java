@@ -6,8 +6,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.lucas.passwordvault.R;
 import com.lucas.passwordvault.controller.DBController;
 import com.lucas.passwordvault.controller.UserController;
@@ -55,7 +57,7 @@ public class ThirdActivity extends AppCompatActivity {
             startActivity(intent);
         });
         loadUser();
-        tx_register.setOnClickListener(v ->{
+        tx_register.setOnClickListener(v -> {
             Intent intent = new Intent(ThirdActivity.this, MainActivity.class);
             startActivity(intent);
         });

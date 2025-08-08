@@ -29,6 +29,7 @@ public class DBController {
                 return "Record inserted";
             }
         } catch (Exception e) {
+
             e.printStackTrace();
             return "Database error: " + e.getMessage();
         }

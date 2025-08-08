@@ -6,10 +6,12 @@ import android.app.NotificationManager;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -17,13 +19,17 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
+import com.lucas.passwordvault.DB.KeyHelper;
 import com.lucas.passwordvault.R;
 import com.lucas.passwordvault.controller.DBController_Email;
 import com.lucas.passwordvault.controller.DBController_Password;
 import com.lucas.passwordvault.controller.DBController_Username;
 import com.lucas.passwordvault.model.Password;
+
 import java.security.SecureRandom;
 import java.util.Random;
+
+import com.lucas.passwordvault.controller.Encrypt;
 
 public class SecondActivity extends AppCompatActivity {
     private TextView tx_Password, tx_Username, tx_Email;
@@ -45,6 +51,13 @@ public class SecondActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.second_activity);
+
+        try {
+            KeyHelper.createKeyIfNotExists();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error creating encryption key", Toast.LENGTH_SHORT).show();
+        }
 
         CreatNotification();
 
@@ -83,13 +96,19 @@ public class SecondActivity extends AppCompatActivity {
 
         btn_savePassword.setOnClickListener(v -> {
             if (!password.isEmpty()) {
-                Password password1 = new Password(password);
-                dbControllerPassword.insertData(password1.getPassword());
-                Toast.makeText(this, "Password saved successfully!", Toast.LENGTH_SHORT).show();
+                try {
+                    String passwordEncrypted = Encrypt.encrypt(password);
+                    dbControllerPassword.insertData(passwordEncrypted);
+                    Log.d("ENCRYPT_TEST", "Password Encrypted: " + passwordEncrypted);
+                    Toast.makeText(this, "Password saved successfully!", Toast.LENGTH_SHORT).show();
+                    SendNotification();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(this, "Error encrypting password.", Toast.LENGTH_SHORT).show();
+                }
             } else {
                 Toast.makeText(this, "Generate a password before saving.", Toast.LENGTH_SHORT).show();
             }
-            SendNotification();
         });
 
         btn_generateEmail.setOnClickListener(v -> {

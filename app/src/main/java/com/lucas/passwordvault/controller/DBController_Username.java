@@ -4,6 +4,7 @@ package com.lucas.passwordvault.controller;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+
 import com.lucas.passwordvault.DB.DBUsername;
 
 public class DBController_Username {
